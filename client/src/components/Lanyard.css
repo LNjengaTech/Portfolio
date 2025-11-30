@@ -1,0 +1,14 @@
+.lanyard-wrapper {
+  position: relative;
+  z-index: 9999;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1);
+  transform-origin: center;
+}
+
+canvas {
+  overflow: visible !important;
+}

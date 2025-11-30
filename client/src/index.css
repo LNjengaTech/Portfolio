@@ -1,10 +1,12 @@
-@import "tailwindcss";
+
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
 
 
 @theme {
-  --color-terminal-bg: #0a0e27;
+  /* --color-terminal-bg: #0a0e27; */
+  --color-terminal-bg: #000000;
   --color-terminal-text: #00ff41;
   --color-terminal-prompt: #00d9ff;
   --color-terminal-error: #ff6b6b;
@@ -42,14 +44,24 @@ body {
   background: #00d9ff;
 }
 
-/* Terminal cursor animation */
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+.terminal-input-visual {
+  font-family: monospace;
+  white-space: pre;
+  position: relative;
 }
 
-.cursor-blink {
-  animation: blink 1s infinite;
+.terminal-cursor {
+  position: absolute;
+  width: 1ch;
+  height: 1.2em;
+  display: inline-block;
+  animation: blink 1s steps(1) infinite;
+  mix-blend-mode: difference;   /* THIS IS WHAT MAKES IT INVERT */
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
 }
 
 

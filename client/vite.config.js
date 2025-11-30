@@ -9,6 +9,7 @@ export default defineConfig({
     tailwindcss()
     
   ],
+  assetsInclude: ['**/*.glb'],
   // server: {
   //   port: 3000,
   //   proxy: {

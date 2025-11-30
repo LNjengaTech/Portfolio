@@ -36,6 +36,9 @@ connectDB()
 app.use(express.json());
 
 // Routes
+app.get('/',(req, res)=>{
+  res.send("API running...")
+})
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/commands', commandRoutes);
@@ -52,4 +55,4 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold))
+app.listen(PORT, '0.0.0.0', ()=>{console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold)} )
