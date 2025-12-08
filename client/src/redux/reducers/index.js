@@ -1,3 +1,4 @@
+//combined all reducers here(root reducer) to be used in the store
 import { combineReducers } from 'redux';
 import {
   userLoginReducer,

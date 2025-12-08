@@ -1,3 +1,6 @@
+//recap: reducers are pure functions that take the current state and an action as arguments and return a new state
+//they listen for action types and update the state accordingly 
+
 import {
   COMMAND_LIST_REQUEST,
   COMMAND_LIST_SUCCESS,

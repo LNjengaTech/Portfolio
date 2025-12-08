@@ -15,7 +15,7 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-terminal-bg">
-      {/* Admin Header */}
+      {/*admin's side header */}
       <header className="bg-terminal-bg border-b border-terminal-text/20 py-4 px-6">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link to="/admin" className="text-2xl font-bold text-terminal-text">
@@ -35,7 +35,7 @@ const AdminLayout = () => {
         </div>
       </header>
 
-      {/* Admin Navigation */}
+      {/*navigation */}
       <nav className="bg-terminal-bg border-b border-terminal-text/20 py-3 px-6">
         <div className="max-w-7xl mx-auto flex gap-6">
           <Link
@@ -65,7 +65,7 @@ const AdminLayout = () => {
         </div>
       </nav>
 
-      {/* Admin Content */}
+      {/*content*/}
       <main className="max-w-7xl mx-auto py-8 px-6">
         <Outlet />
       </main>

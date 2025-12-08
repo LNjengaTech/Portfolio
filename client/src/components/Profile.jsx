@@ -1,3 +1,5 @@
+//lanyard component from reactbits.dev with my prefered modifications
+//showing some errors but works fine. Definitely an issue with Three js Might revisit later!
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
@@ -11,7 +13,7 @@ import { listProjects } from '../redux/actions/projectActions';
 
 
 
-// replace with your own imports, see the usage snippet for details
+// replaced with my own imports
 const CARD_GLB_URL = '/card.glb';
 const CARD_IMAGE_URL = '/lanyard.png';
 
@@ -40,8 +42,11 @@ return (
     relative overflow-visible p-6 rounded-lg border border-terminal-text/20
     bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),rgba(0,0,0,0.85),#000)]" style={{ touchAction: 'none' }}>
 
-    {/* 3D Canvas Layer */}
+    <div className="absolute right-3 top-2 text-terminal-prompt flex justify-end items-center gap-3 "><div className="text-xs">Status: Available</div> <div className="w-2 h-2 rounded-full bg-green-500"></div></div>
+
+    {/*3D Canvas Layer */}
     <div className="absolute inset-0 overflow-visible z-99999 pointer-events-auto">
+      
       <Canvas
         camera={{ position: position, fov: fov }}
         dpr={[1, isMobile ? 1.2 : 1.5]}
@@ -78,7 +83,7 @@ return (
       </Canvas>
     </div>
 
-    {/* Your normal content */}
+    {/*my normal content */}
     <div className="flex flex-col items-center text-center space-y-4 relative top-[35%] z-10">
       <h2 className="text-2xl font-bold text-terminal-text mb-1">Lonnex Njenga</h2>
       <p className="text-terminal-prompt text-sm">Full Stack Developer</p>
@@ -121,13 +126,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
     dir = new THREE.Vector3();
   const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
 //================================================
-  // --- ASSET LOADING USING PUBLIC URLS ---
+  // ----ASSET LOADING USING PUBLIC URLS---
   const { nodes, materials } = useGLTF(CARD_GLB_URL);
   const cardTexture = useTexture(CARD_IMAGE_URL);
   const bandTexture = useTexture(CARD_IMAGE_URL);
 
 
-  // *** FIX: Apply texture settings immediately after loading ***
+  //issue fix: Applying texture settings immediately after loading ***
   useEffect(() => {
     cardTexture.flipY = false;
     cardTexture.needsUpdate = true;
@@ -136,8 +141,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
 
      bandTexture.wrapS = bandTexture.wrapT = THREE.RepeatWrapping;
 
-    // Optional: Add a cleanup function to dispose of textures when the component unmounts.
-    // This is good practice for memory management in Three.js.
+    //Here, add a cleanup function to dispose of textures when the component unmounts.
+    //a good practice for memory management in Three.js.
     return () => {
         cardTexture.dispose();
         bandTexture.dispose();
@@ -224,7 +229,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             onPointerUp={e => (e.target.releasePointerCapture(e.pointerId), drag(false))}
             onPointerDown={e => {
               //======================================================================
-              // Essential fix for preventing mobile scrolling/zooming during drag
+              //essential fix for preventing mobile scrolling/zooming during drag. This gave me a hard time!
               if (isMobile && e.nativeEvent.touches && e.nativeEvent.touches.length > 0) {
                   e.nativeEvent.preventDefault(); 
                   e.stopPropagation();

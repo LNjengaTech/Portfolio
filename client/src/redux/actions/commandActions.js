@@ -1,4 +1,11 @@
-import api from '../../api/api';
+//recap: actions are functions that returns an action object or a function (in the case of redux-thunk) to perform async operations
+//they then dispatch actions to the reducers based on the result of the async operations
+//an action object has a type and an optional payload
+//the recucers listen for action types and update the state accordingl
+//
+
+//All my the command-related actions
+import api from '../../api/api'; //Where i have set up axios instance with interceptors
 import {
   COMMAND_LIST_REQUEST,
   COMMAND_LIST_SUCCESS,
@@ -17,6 +24,7 @@ import {
   COMMAND_DELETE_FAIL,
 } from '../constants/commandConstants';
 
+//This is my action to list all commands that will be dispatched(to the reduce) when i want to pass all cmds from backend to frntend
 export const listCommands = () => async (dispatch) => {
   try {
     dispatch({ type: COMMAND_LIST_REQUEST });

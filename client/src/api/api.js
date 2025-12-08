@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'; //axios instance for api calls, Added interceptors for req and res
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -7,7 +7,7 @@ const api = axios.create({
   },
 });
 
-// Request interceptor to add token
+//intercepting the request to add token
 api.interceptors.request.use(
   (config) => {
     const userInfo = localStorage.getItem('userInfo');
@@ -22,7 +22,7 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor for error handling
+//intecepting the response for error handling
 api.interceptors.response.use(
   (response) => response,
   (error) => {

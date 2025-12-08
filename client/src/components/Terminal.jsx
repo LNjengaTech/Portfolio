@@ -203,6 +203,8 @@ const Terminal = () => {
         {/* Hidden real input (stores text + handles events) */}
         <input
           ref={inputRef}
+          placeholder='type "help"'
+          overflow="clip"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}

@@ -1,3 +1,5 @@
+// This will serve two different clients: CLI client and GUI web client(Recat)
+
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');

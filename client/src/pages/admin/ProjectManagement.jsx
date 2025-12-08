@@ -20,7 +20,7 @@ const Dashboard = () => {
       <h1 className="text-3xl font-bold text-terminal-text mb-6">Dashboard</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {/* Stats Cards */}
+        {/*stats cards */}
         <div className="bg-terminal-bg/50 border border-terminal-text/20 rounded-lg p-6">
           <h3 className="text-terminal-text/70 text-sm mb-2">Total Projects</h3>
           <p className="text-4xl font-bold text-terminal-prompt">
@@ -43,7 +43,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/*Quick actions*/}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-terminal-bg/50 border border-terminal-text/20 rounded-lg p-6">
           <h2 className="text-xl font-bold text-terminal-text mb-4">Quick Actions</h2>

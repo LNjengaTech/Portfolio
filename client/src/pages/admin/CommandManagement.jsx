@@ -1,3 +1,4 @@
+//here, i manage all commands-(crud)
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -40,6 +41,18 @@ const CommandManagement = () => {
     error: deleteError,
   } = useSelector((state) => state.commandDelete);
 
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      output: '',
+      description: '',
+      isCoreCommand: false,
+      showInHeader: true,
+    });
+    setEditMode(false);
+    setCurrentCommand(null);
+  };
+
   useEffect(() => {
     dispatch(listCommands());
 
@@ -56,17 +69,7 @@ const CommandManagement = () => {
     }
   }, [dispatch, createSuccess, updateSuccess, deleteSuccess]);
 
-  const resetForm = () => {
-    setFormData({
-      name: '',
-      output: '',
-      description: '',
-      isCoreCommand: false,
-      showInHeader: true,
-    });
-    setEditMode(false);
-    setCurrentCommand(null);
-  };
+  
 
   const handleOpenModal = (command = null) => {
     if (command) {
@@ -123,7 +126,7 @@ const CommandManagement = () => {
         </button>
       </div>
 
-      {/* Info Box */}
+      {/*info box */}
       <div className="mb-6 p-4 bg-terminal-prompt/10 border border-terminal-prompt/30 rounded-lg">
         <p className="text-terminal-text text-sm">
           <strong>Note:</strong> Core commands like "help", "clear", "projects", and "project" are built-in. 
@@ -131,14 +134,14 @@ const CommandManagement = () => {
         </p>
       </div>
 
-      {/* Error Messages */}
+      {/*error messages */}
       {(createError || updateError || deleteError) && (
         <div className="mb-4 p-4 bg-terminal-error/10 border border-terminal-error rounded text-terminal-error">
           {createError || updateError || deleteError}
         </div>
       )}
 
-      {/* Commands Grid */}
+      {/*commands grid*/}
       {loading ? (
         <div className="text-terminal-text text-center py-8">Loading commands...</div>
       ) : (
@@ -205,7 +208,7 @@ const CommandManagement = () => {
         </div>
       )}
 
-      {/* Modal */}
+      {/*modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
           <div className="bg-terminal-bg border border-terminal-text/20 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
