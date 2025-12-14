@@ -12,22 +12,12 @@ const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 dotenv.config();
 
-const allowedOrigins = [
-    process.env.CLIENT_URL,
-    'http://10.21.0.226:5173',
-    'http://192.168.42.246:5173',
-    'http://192.168.43.200:5173'
-];
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: process.env.CLIENT_URL,
   credentials: true,
 };
+
+app.use(cors(corsOptions));
 
 const app = express();
 app.use(cors(corsOptions));
