@@ -15,6 +15,9 @@ import {
   PROJECT_DELETE_REQUEST,
   PROJECT_DELETE_SUCCESS,
   PROJECT_DELETE_FAIL,
+  PROJECT_IMAGE_UPLOAD_REQUEST,
+  PROJECT_IMAGE_UPLOAD_SUCCESS,
+  PROJECT_IMAGE_UPLOAD_FAIL,
 } from '../constants/projectConstants';
 
 export const listProjects = () => async (dispatch) => {
@@ -106,3 +109,6 @@ export const deleteProject = (id) => async (dispatch) => {
     });
   }
 };
+
+
+

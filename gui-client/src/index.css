@@ -1,6 +1,172 @@
 @import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap'); */
+/* src/index.css */
 
+
+/* ---------------------------------- */
+/* 2. CUSTOM THEME DEFINITIONS        */
+/* ---------------------------------- */
+
+/* * NOTE: We are defining custom colors/animations here 
+* and ensuring they are available in Tailwind classes 
+* without requiring a tailwind.config.js file.
+*/
+
+@variant dark (.dark &);
 @theme {
+  /* Redefining your custom primary colors. 
+     We will use Purple for the accent color to match the concept visually. */
+  --color-primary-50: #f5f3ff; /* light purple */
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-300: #c4b5fd;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6; /* Main Purple */
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+
+  /* Your font definitions */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Poppins', sans-serif;
+
+  /* Your animation keyframes */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Mapping keyframes to utility names */
+  --animation-fade-in: fadeIn 0.6s ease-in;
+  --animation-slide-up: slideUp 0.5s ease-out;
+  --animation-float: float 4s ease-in-out infinite; /* Increased duration for subtlety */
+}
+
+
+/* ---------------------------------- */
+/* 3. BASE STYLES & DARK MODE SETUP   */
+/* ---------------------------------- */
+
+/* Default global text and background for Light Mode */
+body {
+  /* Base for light mode */
+  background-color: white;
+  color: #1f2937; /* Gray 900 */
+  font-family: var(--font-sans);
+  transition: background-color 0.5s, color 0.5s; /* Smooth transition for theme change */
+}
+
+/* Applying Dark Mode styles when 'dark' class is present on HTML */
+.dark body {
+  background-color: #030712; /* Deep Slate 950 for better contrast */
+  color: #e5e7eb; /* Gray 200 */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+/* ---------------------------------- */
+/* 4. CUSTOM UTILITY CLASSES          */
+/* ---------------------------------- */
+
+/* Section padding */
+.section-padding {
+  @apply py-20 px-6;
+}
+
+/* Container */
+.container-custom {
+  @apply max-w-7xl mx-auto;
+}
+
+/* Card hover effect */
+.card-hover {
+  /* We manage hover effects directly in the components now for better dark/light control */
+}
+
+/* Custom scrollbar (Kept your original style) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e5e7eb; /* Light mode track */
+}
+.dark::-webkit-scrollbar-track {
+  background: #1f2937; /* Dark mode track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b5cf6; /* Primary 500 */
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed; /* Primary 600 */
+}
+
+/* ---------------------------------- */
+/* 5. COMPONENTS & EFFECTS (Refined)  */
+/* ---------------------------------- */
+
+/* Glass morphism effect (Refined for better dark mode look) */
+.glass {
+  background: rgba(255, 255, 255, 0.05); /* Light mode background */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dark .glass {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Gradient text (Refined for better dark mode look) */
+.gradient-text {
+  background: linear-gradient(135deg, #6d28d9 0%, #38bdf8 100%); /* Purple 700 to Sky 400 (Light) */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-text {
+  background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 100%); /* Primary 400 to Sky 400 (Dark) */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Loading spinner (Kept your original style) */
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #8b5cf6; /* Primary color */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+/* @theme {
   --color-primary-50: #f0f9ff;
   --color-primary-100: #e0f2fe;
   --color-primary-200: #bae6fd;
@@ -50,56 +216,109 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background-color: #0f172a;
+  color: #e2e8f0;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Custom scrollbar
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+::-webkit-scrollbar-track {
+  background: #1e293b;
 }
+
+::-webkit-scrollbar-thumb {
+  background: #0ea5e9;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0284c7;
+}
+
+/* Smooth transitions 
+.smooth-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Glass morphism effect 
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Gradient text 
+.gradient-text {
+  background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button hover effects 
+.btn-primary {
+  @apply bg-primary-500 text-white px-6 py-3 rounded-lg font-semibold;
+  @apply hover:bg-primary-600 transform hover:scale-105 transition-all duration-300;
+  @apply shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply border-2 border-primary-500 text-primary-500 px-6 py-3 rounded-lg font-semibold;
+  @apply hover:bg-primary-500 hover:text-white transform hover:scale-105 transition-all duration-300;
+}
+
+/* Section padding 
+.section-padding {
+  @apply py-20 px-6;
+}
+
+/* Container 
+.container-custom {
+  @apply max-w-7xl mx-auto;
+}
+
+/* Card hover effect 
+.card-hover {
+  @apply transform hover:-translate-y-2 transition-all duration-300;
+  @apply hover:shadow-2xl hover:shadow-primary-500/20;
+}
+
+/* Loading spinner 
+.spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #0ea5e9;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fade in animation 
+.fade-in {
+  animation: fadeIn 0.6s ease-in;
+} */
+

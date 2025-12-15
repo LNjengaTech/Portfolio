@@ -1,49 +1,109 @@
-// server/controllers/projectController.js
 const asyncHandler = require('express-async-handler');
 const Project = require('../models/Project');
 
-// --- PUBLIC ROUTES (for the user layout terminal) ---
+//===========PUBLIC ROUTES(for the user layout terminal)=====
 
-// @desc    Fetch all projects (used for 'projects' command)
+// @desc    Fetch all projects - with optional filters(used for 'projects' command)
 // @route   GET /api/projects
 // @access  Public
-const getProjects = asyncHandler(async (req, res) => {
-    const projects = await Project.find({});
-    res.json(projects);
-});
+const getProjects = async (req, res) => {
+    try {
+        const { featured, category, limit } = req.query;
+        
+        let query = {};
+        
+        if (featured === 'true') {
+            query.featured = true;
+        }
+        
+        if (category) {
+            query.category = category;
+        }
+        
+        let projectsQuery = Project.find(query).sort({ createdAt: -1 });
+        
+        if (limit) {
+            projectsQuery = projectsQuery.limit(parseInt(limit));
+        }
+        
+        const projects = await projectsQuery;
+        res.json(projects);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
-// @desc    Fetch a single project by its terminalCommand (used for 'project <cmd>' command)
+// @desc    Fetching a single project by its terminalCommand(used for 'project <cmd>' command - CLI only)
 // @route   GET /api/projects/:command
 // @access  Public
-const getProjectByCommand = asyncHandler(async (req, res) => {
-    // Find project by the unique terminalCommand field
-    const project = await Project.findOne({ terminalCommand: req.params.command });
-
-    if (project) {
-        res.json(project);
-    } else {
-        res.status(404);
-        throw new Error('Project not found');
+const getProjectByCommand = async (req, res) => {
+    try {
+        const project = await Project.findOne({ 
+            terminalCommand: req.params.command.toLowerCase() 
+        });
+        
+        if (project) {
+            res.json(project);
+        } else {
+            res.status(404).json({ message: 'Project not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
-});
+};
 
 
-// --- ADMIN PROTECTED ROUTES (for the admin layout) ---
+//=================for GUI=================//
+// @desc    Get single project by ID
+// @route   GET /api/projects/id/:id
+// @access  Public
+const getProjectById = async (req, res) => {
+    try {
+        const project = await Project.findById(req.params.id);
+        
+        if (project) {
+            res.json(project);
+        } else {
+            res.status(404).json({ message: 'Project not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
+//=======ADMIN PROTECTED ROUTES - ive updated to accomodate the GUI
 
 // @desc    Create a new project
 // @route   POST /api/projects
 // @access  Private/Admin
 const createProject = asyncHandler(async (req, res) => {
-    const { title, description, terminalCommand, technologies, liveUrl, repoUrl } = req.body;
+    const { 
+        title,
+        description,
+        detailedDescription,//addition
+        terminalCommand,
+        technologies,
+        liveUrl,
+        repoUrl,
+        //===aditions====
+        imageUrl,
+        images,
+        featured,
+        category,
+        completionDate,
+        demoVideo,
+    } = req.body;
 
-    // The technologies field is an array of strings in the model, 
-    // but often sent as a comma-separated string from a form.
-    // Let's normalize it here.
-    const techArray = technologies 
-        ? technologies.split(',').map(tech => tech.trim())
-        : [];
+    //this technologies field is an array of strings in the model, but sent as a comma-separated string from the form.
+    const techArray = Array.isArray(technologies) 
+        ? technologies 
+        : (technologies || '') // <-- The key fix: treat null/undefined/falsey as empty string
+            .split(',')
+            .map(tech => tech.trim())
+            .filter(tech => tech.length > 0);
     
-    // Check if a project with the same terminal command already exists
+    //check if a project with the same terminal command already exists
     const projectExists = await Project.findOne({ terminalCommand });
 
     if (projectExists) {
@@ -52,13 +112,20 @@ const createProject = asyncHandler(async (req, res) => {
     }
 
     const project = new Project({
-        title,
-        description,
-        terminalCommand,
-        technologies: techArray,
-        liveUrl,
-        repoUrl,
-    });
+            title,
+            description,
+            detailedDescription,
+            terminalCommand: terminalCommand.toLowerCase(),
+            technologies: Array.isArray(technologies) ? technologies : technologies.split(',').map(t => t.trim()),
+            liveUrl,
+            repoUrl,
+            imageUrl,
+            images: Array.isArray(images) ? images : (images ? images.split(',').map(i => i.trim()) : []),
+            featured: featured || false,
+            category,
+            completionDate,
+            demoVideo,
+        });
 
     const createdProject = await project.save();
     res.status(201).json(createdProject);
@@ -73,17 +140,24 @@ const updateProject = asyncHandler(async (req, res) => {
     const project = await Project.findById(req.params.id);
 
     if (project) {
-        // Normalize technologies input
-        const techArray = technologies 
-            ? technologies.split(',').map(tech => tech.trim())
-            : [];
+        //normalize technologies input
+        const techArray = technologies ? technologies.split(',').map(tech => tech.trim()): [];
             
         project.title = title || project.title;
         project.description = description || project.description;
+        project.detailedDescription = req.body.detailedDescription || project.detailedDescription;//addition
         project.terminalCommand = terminalCommand || project.terminalCommand;
-        project.technologies = techArray; // Update the whole array
+        project.technologies = techArray; //Update the whole array
         project.liveUrl = liveUrl || project.liveUrl;
         project.repoUrl = repoUrl || project.repoUrl;
+
+        //===additions====
+        project.imageUrl = req.body.imageUrl || project.imageUrl;
+        project.images = req.body.images || project.images;
+        project.featured = req.body.featured !== undefined ? req.body.featured : project.featured;
+        project.category = req.body.category || project.category;
+        project.completionDate = req.body.completionDate || project.completionDate;
+        project.demoVideo = req.body.demoVideo || project.demoVideo;
 
         const updatedProject = await project.save();
         res.json(updatedProject);
@@ -108,10 +182,54 @@ const deleteProject = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Upload project image
+// @route   POST /api/projects/upload
+// @access  Private/Admin
+const uploadProjectImage = async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
+        }
+        
+        // Return the file path
+        res.json({
+            message: 'Image uploaded successfully',
+            imageUrl: `/uploads/projects/${req.file.filename}`,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 module.exports = {
     getProjects,
     getProjectByCommand,
+    getProjectById,
     createProject,
     updateProject,
     deleteProject,
+    uploadProjectImage,
 };
+
+//====================================================
+//Alternative way: upload controller to use Cloudinary - ill keep this commented out for now
+//======================================================
+
+/*
+const cloudinary = require('../config/cloudinary');
+
+const uploadProjectImage = async (req, res) => {
+    try {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'portfolio/projects',
+        });
+        
+        res.json({
+            message: 'Image uploaded successfully',
+            imageUrl: result.secure_url,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+*/

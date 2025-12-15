@@ -1,4 +1,3 @@
-// server/models/Project.js
 const mongoose = require('mongoose');
 
 const projectSchema = mongoose.Schema(
@@ -10,6 +9,23 @@ const projectSchema = mongoose.Schema(
         liveUrl: { type: String },
         repoUrl: { type: String },
         // Later: imageUrl: { type: String },
+
+
+//===========================================================================================
+        //fields for GUI
+//=========================================================================================        
+        detailedDescription: { type: String }, // Full description for GUI detail view
+        imageUrl: { type: String }, // Main project screenshot/image
+        images: [{ type: String }], // Multiple images for gallery
+        featured: { type: Boolean, default: false }, // Highlight on homepage
+        category: { type: String, enum: ['Web', 'Mobile', 'Desktop', 'API', 'Other'], default: 'Web' },
+        completionDate: { type: Date },
+        demoVideo: { type: String }, // YouTube/Vimeo URL
+        
+        //additional metadata
+        githubStars: { type: Number, default: 0 },
+        challenges: { type: String }, // Challenges faced during development
+        learnings: { type: String }, // What you learned
     },
     {
         timestamps: true,

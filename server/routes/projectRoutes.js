@@ -1,29 +1,30 @@
-// server/routes/projectRoutes.js
 const express = require('express');
 const router = express.Router();
+const upload = require('../middleware/uploadMiddleware');
+
 const { 
     getProjects, 
-    getProjectByCommand, 
+    getProjectByCommand,
+    getProjectById,
     createProject, 
     updateProject, 
-    deleteProject 
+    deleteProject,
+    uploadProjectImage,
 } = require('../controllers/projectController');
 const { protect } = require('../middleware/authMiddleware'); // Import protection middleware
 
-// Public Routes (Terminal Read Access)
-router.get('/', getProjects); // Fetches all projects (e.g., for 'projects' command)
-router.get('/:command', getProjectByCommand); // Fetches a single project (e.g., for 'project <name>' command)
+//Public Routes
+router.get('/', getProjects);
+router.get('/id/:id', getProjectById); //get by ID for GUI
+router.get('/:command', getProjectByCommand); //get by terminal command for CLI
 
 
-// Admin Protected Routes (CRUD)
-// The POST route is used to CREATE a new project, protected by 'protect'
-router.route('/')
-    .post(protect, createProject); 
-
-// The PUT and DELETE routes are used for UPDATE and DELETE operations, protected by 'protect'
-router.route('/:id')
-    .put(protect, updateProject)
+//Admin Protected Routes
+router.route('/').post(protect, createProject); 
+router.route('/:id').put(protect, updateProject)
     .delete(protect, deleteProject);
 
+//image upload route
+router.post('/upload', protect, upload.single('image'), uploadProjectImage);
 
 module.exports = router;

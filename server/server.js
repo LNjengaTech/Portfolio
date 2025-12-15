@@ -1,5 +1,4 @@
-// This will serve two different clients: CLI client and GUI web client(Recat)
-
+//this will serve two different clients: CLI client and GUI client
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -9,6 +8,16 @@ const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const commandRoutes = require('./routes/commandRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const messageRoutes = require('./routes/messageRoutes.js');
+
+const path = require('path');//path module to handle file paths(in this case, for uploads)
+
+// Create uploads directory if it doesn't exist
+const fs = require('fs');
+const uploadsDir = path.join(__dirname, 'uploads/projects');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
 dotenv.config();
 
@@ -33,12 +42,12 @@ app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/commands', commandRoutes);
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use('/api/messages', messageRoutes);
+
 app.use(notFound);
 app.use(errorHandler);
-
-
-
-
 
 
 
