@@ -1,6 +1,7 @@
 # Environment Files (Crucial Addition)
 client/.env
 server/.env
+gui-client/.env
 
 # Logs
 logs
