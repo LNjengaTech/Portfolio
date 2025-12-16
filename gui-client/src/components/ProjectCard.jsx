@@ -11,16 +11,16 @@ const ProjectCard = ({ project }) => {
 
   return (
     <div 
-      className="glass rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-800
+      className="glass rounded-xl overflow-hidden shadow-lg border border-gray-200
         transform hover:-translate-y-2 transition-all duration-500 card-hover"
       style={{ animation: 'var(--animation-slide-up)' }}
     >
       {/* Project Image/Media */}
-      <div className="relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden">
+      <div className="relative aspect-video bg-gray-100 dark:bg-purple-950/1 overflow-hidden">
         <img
           src={imageUrl}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="w-full p-2 rounded-2xl h-full object-fit transition-transform duration-500 group-hover:scale-105"
         />
         {project.featured && (
           <span className="absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 text-xs font-semibold rounded-full shadow-md">

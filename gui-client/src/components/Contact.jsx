@@ -57,14 +57,14 @@ const Contact = () => {
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      value: 'your.email@example.com',
-      link: 'mailto:your.email@example.com',
+      value: 'youremail@example.com',
+      link: 'mailto:njengalonnex340@gmail.com',
     },
     {
       icon: <FaPhone />,
       title: 'Phone',
-      value: '+254 XXX XXX XXX',
-      link: 'tel:+254XXXXXXXXX',
+      value: '+254 113 697 897',
+      link: 'tel:+254113697897',
     },
     {
       icon: <FaMapMarkerAlt />,
@@ -75,7 +75,7 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: <FaGithub />, url: 'https://github.com/yourusername', label: 'GitHub' },
+    { icon: <FaGithub />, url: 'https://github.com/LNjengaTech', label: 'GitHub' },
     { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
     { icon: <FaTwitter />, url: 'https://twitter.com/yourusername', label: 'Twitter' },
   ];
