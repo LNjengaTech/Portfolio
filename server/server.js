@@ -19,15 +19,30 @@ if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+
+const app = express();
+
+
 dotenv.config();
 
+const allowedOrigins = process.env.CLIENT_URL.split(',');
+
 const corsOptions = {
-  origin: process.env.CLIENT_URL,
+  origin: function (origin, callback) {
+    //Allowing requests with no origin(e.g Postman, server-to-server)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 };
 
-const app = express();
 app.use(cors(corsOptions));
+
 
 connectDB()
 
