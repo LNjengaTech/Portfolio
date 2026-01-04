@@ -76,14 +76,14 @@ const About = () => {
                 <p className="text-gray-600 dark:text-gray-400">Years Exp</p>
               </div>
               <div>
-                <h4 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">50+</h4>
+                <h4 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">70+</h4>
                 <p className="text-gray-600 dark:text-gray-400">Commits</p>
               </div>
             </div>
 
             <a
-              href="/resume.pdf"
-              download
+              href="/Resume.pdf"
+              download="Lonnex_Resume.pdf"
               className="inline-block px-8 py-3 text-lg font-semibold rounded-lg shadow-lg 
                 bg-purple-600 text-white hover:bg-purple-700 
                 dark:bg-purple-500 dark:hover:bg-purple-600 dark:shadow-purple-500/50 

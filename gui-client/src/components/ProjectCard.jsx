@@ -4,10 +4,13 @@ import React from 'react';
 import { FaExternalLinkAlt, FaCode } from 'react-icons/fa';
 
 const ProjectCard = ({ project }) => {
-  const apiUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : '';
-  const imageUrl = project.imageUrl 
-    ? `${apiUrl}${project.imageUrl}` 
-    : 'https://via.placeholder.com/400x300/e5e7eb/4b5563?text=Project+Image';
+  //check if it's a full URL (Cloudinary) or a local path
+  const imageUrl = project.imageUrl?.startsWith('http') 
+    ? project.imageUrl 
+    : `${import.meta.env.VITE_API_URL.replace('/api', '')}${project.imageUrl}`;
+
+  //fallback for empty images
+  const finalSrc = project.imageUrl ? imageUrl : 'https://via.placeholder.com/400x300';
 
   return (
     <div 

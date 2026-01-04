@@ -1,7 +1,7 @@
 // src/components/Hero.jsx (Updated with Typing Effect)
 
 import React from 'react';
-import { FaGithub, FaLinkedin, FaEnvelope, FaArrowDown } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaArrowDown } from 'react-icons/fa';
 import { scrollToSection } from '../utils/smoothScroll';
 import useTypingEffect from '../hooks/useTypingEffect'; // NEW IMPORT
 
@@ -21,7 +21,7 @@ const Hero = () => {
     <section
       id="hero"
       // Dark Mode: Deep space background. Light Mode: Clean gradient
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-200 dark:bg-gray-950 transition-colors duration-500"
+      className="min-h-[90vh] flex items-center justify-center relative overflow-hidden bg-gray-200 dark:bg-gray-950 transition-colors duration-500"
     >
       {/* Dynamic Animated Background Glows */}
       <div className="absolute inset-0 dark:block hidden">
@@ -79,6 +79,17 @@ const Hero = () => {
             >
               Get In Touch
             </button>
+
+            <a
+              href="/Resume.pdf"
+              download="Lonnex_Resume.pdf"
+              className="inline-block px-8 py-3 text-lg font-semibold rounded-lg shadow-lg 
+                bg-purple-600 text-white hover:bg-purple-700 
+                dark:bg-purple-500 dark:hover:bg-purple-600 dark:shadow-purple-500/50 
+                transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              Download Resume
+            </a>
           </div>
           
           {/* Social Links */}
@@ -93,7 +104,7 @@ const Hero = () => {
               <FaGithub />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://www.linkedin.com/in/lonnex-njenga-b4946336b"
               target="_blank"
               rel="noopener noreferrer"
               className="text-3xl text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors transform hover:scale-110"
@@ -102,7 +113,16 @@ const Hero = () => {
               <FaLinkedin />
             </a>
             <a
-              href="mailto:your.email@example.com"
+              href="https://x.com/LonnexTech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-3xl text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors transform hover:scale-110"
+              aria-label="LinkedIn profile"
+            >
+              <FaTwitter />
+            </a>
+            <a
+              href="mailto:njengalonnex340@gmail.com"
               className="text-3xl text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors transform hover:scale-110"
               aria-label="Email link"
             >

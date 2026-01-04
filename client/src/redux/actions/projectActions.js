@@ -111,4 +111,35 @@ export const deleteProject = (id) => async (dispatch) => {
 };
 
 
+//new - image upload action
+export const uploadProjectImage = (imageFile) => async (dispatch) => {
+  try {
+    dispatch({ type: PROJECT_IMAGE_UPLOAD_REQUEST });
+
+    const formData = new FormData();
+    formData.append('image', imageFile);
+
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    const { data } = await api.post('/projects/upload', formData, config);
+
+    dispatch({ type: PROJECT_IMAGE_UPLOAD_SUCCESS, payload: data.imageUrl });
+    
+    return data.imageUrl;
+  } catch (error) {
+    dispatch({
+      type: PROJECT_IMAGE_UPLOAD_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+    throw error;
+  }
+};
+
 

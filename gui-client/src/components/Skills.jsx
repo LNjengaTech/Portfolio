@@ -19,11 +19,12 @@ import {
   SiRedis,
   SiMysql,
   SiNextdotjs,
-  SiRedux,
   SiLaravel,
-  SiAmazon,
-  SiAmazonwebservices
+  SiAmazonwebservices,
+  SiSupabase,
 } from 'react-icons/si';
+import { Icon } from '@iconify/react';
+ 
 
 const Skills = () => {
   const skillCategories = [
@@ -31,20 +32,20 @@ const Skills = () => {
       title: 'Frontend',
       skills: [
         { name: 'React', icon: <FaReact />, level: 96 },
-        { name: 'JavaScript', icon: <SiJavascript />, level: 85 },
-        { name: 'TypeScript', icon: <SiTypescript />, level: 96 },
-        { name: 'Next.js', icon: <SiNextdotjs />, level: 96 },
-        { name: 'Tailwind CSS', icon: <SiTailwindcss />, level: 95 },
-        { name: 'Redux', icon: <SiRedux />, level: 30 },
+        { name: 'JavaScript', icon: <SiJavascript />, level: 90 },
+        { name: 'TypeScript', icon: <SiTypescript />, level: 90 },
+        { name: 'Next.js', icon: <SiNextdotjs />, level: 86 },
+        { name: 'Tailwind CSS', icon: <SiTailwindcss />, level: 98 },
       ],
     },
     {
-      title: 'Backend',
+      title: 'Backend & BaaS',
       skills: [
-        { name: 'Node.js', icon: <FaNodeJs />, level: 96 },
-        { name: 'Express', icon: <SiExpress />, level: 90 },
+        { name: 'Node.js & Express.js', icon: < SiExpress />, level: 96 },
+        { name: 'Next.js', icon: <SiNextdotjs />, level: 86 },
         { name: 'Laravel', icon: <SiLaravel />, level: 85 },
-        { name: 'Python', icon: <FaPython />, level: 50 },
+        { name: 'Python', icon: <FaPython />, level: 40 },
+        { name: 'Supabase', icon: <SiSupabase />, level: 86 },
       ],
     },
     {
@@ -54,6 +55,8 @@ const Skills = () => {
         { name: 'PostgreSQL', icon: <SiPostgresql />, level: 70 },
         { name: 'MySQL', icon: <SiMysql />, level: 80 },
         { name: 'Redis', icon: <SiRedis />, level: 25 },
+        { name: 'Pinecone', icon: <Icon icon="logos:pinecone-icon" /> , level: 25 },
+
       ],
     },
     {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import {FaXTwitter} from 'react-icons/fa6'
 
 //an API call to send messages
 const API_URL = import.meta.env.VITE_API_URL || '/api'; //fallback to /api
@@ -57,7 +58,7 @@ const Contact = () => {
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      value: 'youremail@example.com',
+      value: 'njengalonnex340@gmail.com',
       link: 'mailto:njengalonnex340@gmail.com',
     },
     {
@@ -76,8 +77,8 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: <FaGithub />, url: 'https://github.com/LNjengaTech', label: 'GitHub' },
-    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-    { icon: <FaTwitter />, url: 'https://twitter.com/yourusername', label: 'Twitter' },
+    { icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/lonnex-njenga-b4946336b', label: 'LinkedIn' },
+    { icon: <FaXTwitter />, url: 'https://x.com/LonnexTech', label: 'Twitter' },
   ];
 
   return (

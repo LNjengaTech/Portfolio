@@ -11,7 +11,7 @@ const Header = () => {
         </Link>
         <nav>
           <Link
-            // to="https://github.com/LNjengaTech"
+            to="https://lonnex.vercel.app"
             className="text-terminal-prompt text-xs transition-colors px-4 py-2 rounded hover:text-terminal-prompt/70"
           >
            -&gt; GUI Portfolio

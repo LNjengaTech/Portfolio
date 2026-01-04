@@ -182,7 +182,8 @@ const deleteProject = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc    Upload project image
+
+// @desc    Upload project image to Cloudinary
 // @route   POST /api/projects/upload
 // @access  Private/Admin
 const uploadProjectImage = async (req, res) => {
@@ -190,16 +191,21 @@ const uploadProjectImage = async (req, res) => {
         if (!req.file) {
             return res.status(400).json({ message: 'No file uploaded' });
         }
+
+        console.log('File uploaded to Cloudinary:', req.file.path);
         
-        // Return the file path
+        //Multer-storage-cloudinary adds the 'path' property to the file object which contains the Cloudinary URL.
         res.json({
             message: 'Image uploaded successfully',
-            imageUrl: `/uploads/projects/${req.file.filename}`,
+            imageUrl: req.file.path, 
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+
 module.exports = {
     getProjects,
     getProjectByCommand,

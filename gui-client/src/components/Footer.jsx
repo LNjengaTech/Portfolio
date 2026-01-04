@@ -14,10 +14,10 @@ const Footer = () => {
           {/* Logo/Name */}
           <div className="text-center md:text-left">
             <Link to="/portfolio" className="text-3xl font-extrabold tracking-tight">
-              <span className="gradient-text">Lonnex</span>
+              <span className="gradient-text">Lonnex Njenga</span>
             </Link>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-              Full Stack Developer & IT Enthusiast
+              Full Stack Developer & CyberSec Enthusiast
             </p>
           </div>
 
@@ -49,10 +49,10 @@ const Footer = () => {
             <a href="https://github.com/LNjengaTech" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 text-xl transition-colors">
               <FaGithub />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 text-xl transition-colors">
+            <a href="https://www.linkedin.com/in/lonnex-njenga-b4946336b" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 text-xl transition-colors">
               <FaLinkedin />
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 text-xl transition-colors">
+            <a href="https://x.com/LonnexTech" target="_blank" rel="noopener noreferrer" className="text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 text-xl transition-colors">
               <FaTwitter />
             </a>
           </div>

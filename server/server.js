@@ -12,12 +12,12 @@ const messageRoutes = require('./routes/messageRoutes.js');
 
 const path = require('path');//path module to handle file paths(in this case, for uploads)
 
-// Create uploads directory if it doesn't exist
-const fs = require('fs');
-const uploadsDir = path.join(__dirname, 'uploads/projects');
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-}
+// // Create uploads directory if it doesn't exist
+// const fs = require('fs');
+// const uploadsDir = path.join(__dirname, 'uploads/projects');
+// if (!fs.existsSync(uploadsDir)) {
+//     fs.mkdirSync(uploadsDir, { recursive: true });
+// }
 
 
 const app = express();
@@ -57,7 +57,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/commands', commandRoutes);
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+//app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api/messages', messageRoutes);
 
