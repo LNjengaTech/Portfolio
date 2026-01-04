@@ -51,9 +51,8 @@ body {
 }
 
 .terminal-cursor {
-  position: absolute;
-  width: 1ch;
-  height: 1.2em;
+  width: 8px;
+  height: 16px;
   display: inline-block;
   animation: blink 1s steps(1) infinite;
   mix-blend-mode: difference;   /* THIS IS WHAT MAKES IT INVERT */

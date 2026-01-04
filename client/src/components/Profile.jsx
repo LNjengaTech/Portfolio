@@ -94,7 +94,7 @@ return (
 
       <div className="grid grid-cols-3 gap-4 w-full pt-4 border-t border-terminal-text/20">
           <div>
-            <p className="text-terminal-prompt font-bold text-lg">{projects?.length || 0}+</p>
+            <p className="text-terminal-prompt font-bold text-lg">{projects?.length + 5 || 0}+</p>
             <p className="text-terminal-text/60 text-xs">Projects</p>
           </div>
           <div>
@@ -102,7 +102,7 @@ return (
             <p className="text-terminal-text/60 text-xs">Years</p>
           </div>
           <div>
-            <p className="text-terminal-prompt font-bold text-lg">50+</p>
+            <p className="text-terminal-prompt font-bold text-lg">70+</p>
             <p className="text-terminal-text/60 text-xs">Commits</p>
           </div>
         </div>

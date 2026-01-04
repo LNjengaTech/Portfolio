@@ -162,13 +162,17 @@ const Terminal = () => {
     onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal Header */}
-      <div className="flex items-center gap-2 mb-4 p-3! bg-black rounded-t-lg border-b border-terminal-text/40">
-        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-        <span className="ml-2 text-terminal-text/70 text-xs font-bold">terminal@portfolio:~$</span>
-        
-      </div>
+        <div className="flex items-center gap-2 mb-4 p-3! bg-black rounded-t-lg border-b border-terminal-text/40">
+          <div className="w-3 h-3 rounded-full bg-red-500"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <div className="w-full flex justify-between items-center">
+            <span className="ml-2 text-terminal-text/70 text-xs font-bold">terminal@portfolio:~$</span>
+            <span classname=''>help | clear | projects</span>
+          </div>
+          
+        </div>
+      
 
       {/* Terminal Content */}
       <div className="flex-1 overflow-y-auto mb-4! p-3! space-y-2">
@@ -206,7 +210,7 @@ const Terminal = () => {
           placeholder='type "help"'
           overflow="clip"
           type="text"
-          value={input}
+          value={input }
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={isTyping}
@@ -215,21 +219,11 @@ const Terminal = () => {
         />
 
         {/* Visible fake input (what user actually sees) */}
-        <div className="terminal-input-visual flex-1 text-terminal-text!" onClick={() => inputRef.current?.focus()}
-        >
-          {input}
-
+        <div className="terminal-input-visual flex-1 text-terminal-text!" onClick={() => inputRef.current?.focus()}>
+          {input }
           {/* Block cursor */}
           {!isTyping && (
-            <span
-              className="terminal-cursor"
-              style={{
-                left: `${input.length}ch`,
-                top: 0,
-              }}
-            >
-              █
-            </span>
+            <span className="terminal-cursor" style={{ left: `${input.length}ch`, top: 0,}}>█</span>
           )}
         </div>
       </form>
