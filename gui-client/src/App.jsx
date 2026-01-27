@@ -1,10 +1,8 @@
-// src/App.jsx (Updated)
-
+//App.jsx - the entrypoint to the project
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ThemeProvider } from './contexts/ThemeContext'; // <--- NEW IMPORT
-
+import { ThemeProvider } from './contexts/ThemeContext';
 
 //pages
 import Landing from './pages/Landing';
@@ -30,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
-    // <--- WRAPPED THE ENTIRE APP WITH THEME PROVIDER
+    //Entire app wrapped in theme provider
     <ThemeProvider> 
       <Routes>
         {/*public Routes */}
@@ -41,24 +39,17 @@ function App() {
         <Route path="/admin/login" element={<Login />} />
 
         {/*protected Admin Routes */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminLayout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/admin" element={ <ProtectedRoute> <AdminLayout /> </ProtectedRoute> }>
           <Route index element={<Dashboard />} />
           <Route path="projects" element={<ProjectManagement />} />
           <Route path="commands" element={<CommandManagement />} />
         </Route>
 
-        {/*catch all */}
+        {/*catch all*/}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </ThemeProvider>
-    // <--- END WRAPPER
+    // End wrapper
   );
 }
 

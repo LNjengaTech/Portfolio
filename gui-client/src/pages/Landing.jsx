@@ -1,4 +1,4 @@
-// src/pages/Landing.jsx (Modernized)
+// src/pages/Landing.jsx
 
 import React from 'react';
 import Antigravity from '../components/Antigravity';

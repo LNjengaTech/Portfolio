@@ -1,7 +1,9 @@
+//projectController.js
+
 const asyncHandler = require('express-async-handler');
 const Project = require('../models/Project');
 
-//===========PUBLIC ROUTES(for the user layout terminal)=====
+//PUBLIC ROUTES(for the user layout terminal)
 
 // @desc    Fetch all projects - with optional filters(used for 'projects' command)
 // @route   GET /api/projects
@@ -53,7 +55,8 @@ const getProjectByCommand = async (req, res) => {
 };
 
 
-//=================for GUI=================//
+//=======FOR GUI========
+
 // @desc    Get single project by ID
 // @route   GET /api/projects/id/:id
 // @access  Public
@@ -72,7 +75,7 @@ const getProjectById = async (req, res) => {
 };
 
 
-//=======ADMIN PROTECTED ROUTES - ive updated to accomodate the GUI
+//DMIN PROTECTED ROUTES - updated to accomodate the GUI
 
 // @desc    Create a new project
 // @route   POST /api/projects
@@ -217,7 +220,7 @@ module.exports = {
 };
 
 //====================================================
-//Alternative way: upload controller to use Cloudinary - ill keep this commented out for now
+//Alternative way: upload controller to use Cloudinary - keeping this commented out for now
 //======================================================
 
 /*

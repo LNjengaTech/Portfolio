@@ -1,14 +1,14 @@
-// server/controllers/commandController.js
+//commandController.js
 const asyncHandler = require('express-async-handler');
 const Command = require('../models/Command');
 
-// --- PUBLIC ROUTES (for the user layout terminal) ---
+//PUBLIC ROUTES (for the user layout terminal)
 
-// @desc    Fetch all commands (for the terminal header and general list)
+// @desc   Fetch all commands(for the terminal header and general list)
 // @route   GET /api/commands
 // @access  Public
 const getCommands = asyncHandler(async (req, res) => {
-    // Only return commands marked to be shown in the header, or all if we decide to list them
+    // Only return commands marked to be shown in the header, or all if Idecide to list them
     const commands = await Command.find({});
     res.json(commands);
 });
@@ -17,7 +17,7 @@ const getCommands = asyncHandler(async (req, res) => {
 // @route   GET /api/commands/:name
 // @access  Public
 const getCommandByName = asyncHandler(async (req, res) => {
-    // Command names are case-insensitive in a CLI, so we should convert it.
+    // Command names are case-insensitive in a CLI, so needs to be converted
     const commandName = req.params.name.toLowerCase();
     
     const command = await Command.findOne({ name: commandName });
@@ -26,14 +26,13 @@ const getCommandByName = asyncHandler(async (req, res) => {
         res.json(command);
     } else {
         res.status(404);
-        // We throw an error here, but the frontend will handle this gracefully 
-        // by showing a 'command not found' message.
+        //throw an error here, but the frontend will handle this gracefully by showing a 'command not found' message.
         throw new Error(`Command not found: ${req.params.name}`);
     }
 });
 
 
-// --- ADMIN PROTECTED ROUTES (for the admin layout) ---
+//ADMIN PROTECTED ROUTES (for the admin layout)
 
 // @desc    Create a new command
 // @route   POST /api/commands
@@ -41,16 +40,16 @@ const getCommandByName = asyncHandler(async (req, res) => {
 const createCommand = asyncHandler(async (req, res) => {
     const { name, output, description, isCoreCommand, showInHeader } = req.body;
 
-    // POTENTIAL OMISSION FIX: Input validation
+    //potential ommision FIX
     if (!name || !output || !description) {
         res.status(400);
         throw new Error('Please include all required fields: name, output, and description.');
     }
     
-    // Normalize command name to lowercase for consistency
+    //Normalize command name to lowercase for consistency
     const normalizedName = name.toLowerCase();
 
-    // Check if command already exists
+    //Check if command already exists
     const commandExists = await Command.findOne({ name: normalizedName });
 
     if (commandExists) {
@@ -111,7 +110,7 @@ const deleteCommand = asyncHandler(async (req, res) => {
     const command = await Command.findById(req.params.id);
 
     if (command) {
-        // Prevent accidental deletion of core commands like 'help' or 'clear'
+        //Prevent accidental deletion of core commands like 'help' or 'clear'
         if (command.isCoreCommand) {
             res.status(403);
             throw new Error('Cannot delete a core command.');

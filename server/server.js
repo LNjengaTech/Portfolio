@@ -10,6 +10,10 @@ const commandRoutes = require('./routes/commandRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const messageRoutes = require('./routes/messageRoutes.js');
 
+const skillRoutes = require('./routes/skillRoutes');
+const experienceRoutes = require('./routes/experienceRoutes');
+const articleRoutes = require('./routes/articleRoutes');
+
 const path = require('path');//path module to handle file paths(in this case, for uploads)
 
 // // Create uploads directory if it doesn't exist
@@ -56,10 +60,12 @@ app.get('/',(req, res)=>{
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/commands', commandRoutes);
-
 //app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 app.use('/api/messages', messageRoutes);
+
+app.use('/api/skills', skillRoutes);
+app.use('/api/experiences', experienceRoutes);
+app.use('/api/articles', articleRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

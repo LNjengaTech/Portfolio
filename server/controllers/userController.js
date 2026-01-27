@@ -1,4 +1,5 @@
-// server/controllers/userController.js
+//userController.js
+
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
@@ -29,10 +30,10 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public (Should be protected later, but public for initial setup)
 const registerUser = asyncHandler(async (req, res) => {
-    // hardcoding isAdmin to true for the portfolio setup
+    //hardcoding isAdmin to true for the portfolio setup
     const { name, email, password } = req.body;
 
-    // Check if user already exists
+    //Check if user already exists
     const userExists = await User.findOne({ email });
 
     if (userExists) {
@@ -44,7 +45,7 @@ const registerUser = asyncHandler(async (req, res) => {
         name,
         email,
         password,
-        isAdmin: true, // Only admins should be registered initially
+        isAdmin: true, //Only admins should be registered initially
     });
 
     if (user) {

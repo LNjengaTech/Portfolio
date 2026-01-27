@@ -1,4 +1,4 @@
-// server/models/Command.js
+//Command.js model
 const mongoose = require('mongoose');
 
 const commandSchema = mongoose.Schema(

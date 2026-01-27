@@ -1,4 +1,4 @@
-// server/models/User.js
+//User.js model
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
@@ -14,12 +14,12 @@ const userSchema = mongoose.Schema(
     }
 );
 
-// Method to compare entered password with hashed password in DB
+//Method to compare entered password with hashed password in DB
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Middleware to hash password before saving (only if modified)
+//Middleware to hash password before saving (only if modified)
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next();

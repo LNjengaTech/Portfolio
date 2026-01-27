@@ -1,3 +1,5 @@
+//messageController.js
+
 const asyncHandler = require('express-async-handler');
 const nodemailer = require('nodemailer');
 
@@ -12,7 +14,7 @@ const sendContactMessage = asyncHandler(async (req, res) => {
     throw new Error('Please fill out all fields.');
   }
 
-  // 1. Create a Nodemailer transporter
+  //Create a Nodemailer transporter
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -23,7 +25,7 @@ const sendContactMessage = asyncHandler(async (req, res) => {
     },
   });
 
-  // 2. Define the email content
+  //Define the email content
   const mailOptions = {
     // Email recipient (your email address)
     to: process.env.TO_EMAIL, 
@@ -46,7 +48,7 @@ const sendContactMessage = asyncHandler(async (req, res) => {
   };
 
   try {
-    // 3. Send the email
+    //Send the email
     await transporter.sendMail(mailOptions);
 
     res.status(200).json({ 
@@ -56,7 +58,7 @@ const sendContactMessage = asyncHandler(async (req, res) => {
   } catch (error) {
     console.error('Nodemailer Error:', error);
     res.status(500);
-    // Throw an error that Express-async-handler will catch
+    //trow an error that Express-async-handler will catch
     throw new Error('Email sending failed. Please check server logs.'); 
   }
 });

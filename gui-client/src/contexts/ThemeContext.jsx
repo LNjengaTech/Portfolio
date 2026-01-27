@@ -1,20 +1,19 @@
-// src/contexts/ThemeContext.jsx
-
+//src/contexts/ThemeContext.jsx
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// 1. Create the Context
+//Create the Context
 const ThemeContext = createContext();
 
-// 2. Define the Provider Component
+//Define the Provider Component
 export const ThemeProvider = ({ children }) => {
-  // Check local storage for saved theme preference, default to 'dark' if none found
+  //Check local storage for saved theme preference, default to 'dark' if none found
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
-    // Default to 'dark' to match the initial portfolio concept
+    //Default to 'dark'
     return savedTheme || 'dark'; 
   });
 
-  // 3. Effect to apply the 'dark' class to the HTML root element
+  //effect to apply  'dark' class to the HTML root element
   useEffect(() => {
     const root = window.document.documentElement;
     
@@ -27,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
     }
   }, [theme]);
 
-  // Function to toggle between themes
+  //Function to toggle between themes
   const toggleTheme = () => {
     setTheme(currentTheme => (currentTheme === 'dark' ? 'light' : 'dark'));
   };
@@ -39,7 +38,7 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-// 4. Custom hook for consuming the context
+//Custom hook for consuming the context
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
