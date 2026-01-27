@@ -1,4 +1,4 @@
-// server/routes/userRoutes.js
+//userRoutes.js
 const express = require('express');
 const router = express.Router();
 const { authUser, registerUser } = require('../controllers/userController');
