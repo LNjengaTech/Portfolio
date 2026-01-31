@@ -67,6 +67,8 @@ app.use('/api/skills', skillRoutes);
 app.use('/api/experiences', experienceRoutes);
 app.use('/api/articles', articleRoutes);
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use(notFound);
 app.use(errorHandler);
 

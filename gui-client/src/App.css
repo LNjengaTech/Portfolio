@@ -5,6 +5,16 @@
   text-align: center;
 }
 
+/* Optional: language label */
+pre.ql-syntax::before {
+  content: attr(data-language) " ";
+  display: block;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

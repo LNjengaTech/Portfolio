@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
-import { FaHome, FaProjectDiagram, FaTerminal, FaSignOutAlt, FaGlobe } from 'react-icons/fa';
+import { FaHome, FaProjectDiagram, FaTerminal, FaSignOutAlt, FaGlobe, FaBriefcase, FaCode, FaFileAlt } from 'react-icons/fa';
 
 const AdminLayout = () => {
   const dispatch = useDispatch();
@@ -19,8 +19,7 @@ const AdminLayout = () => {
 
   return (
     // Enforcing a deep dark background for the admin panel
-    <div className="min-h-screen bg-slate-900 text-gray-100 font-sans"> 
-      
+    <div className="min-h-screen bg-slate-900 text-gray-100 font-sans">
       {/* Admin Header */}
       <header className="bg-gray-900 border-b border-gray-800 py-4 px-6 shadow-xl">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -31,10 +30,7 @@ const AdminLayout = () => {
             <span className="text-gray-400 text-sm hidden sm:inline">
               Welcome, <span className="text-white font-medium">{userInfo?.name}</span>
             </span>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all text-sm font-semibold flex items-center gap-2 shadow-md"
-            >
+            <button onClick={handleLogout} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all text-sm font-semibold flex items-center gap-2 shadow-md">
               <FaSignOutAlt />
               Logout
             </button>
@@ -48,6 +44,9 @@ const AdminLayout = () => {
           {[
             { path: '/admin', name: 'Dashboard', icon: FaHome },
             { path: '/admin/projects', name: 'Projects', icon: FaProjectDiagram },
+            { path: '/admin/skills', name: 'Skills', icon: FaCode },
+            { path: '/admin/experiences', name: 'Experiences', icon: FaBriefcase },
+            { path: '/admin/articles', name: 'Articles', icon: FaFileAlt },
             { path: '/admin/commands', name: 'Commands', icon: FaTerminal },
           ].map((item) => {
             const Icon = item.icon;
@@ -56,17 +55,14 @@ const AdminLayout = () => {
                 key={item.path}
                 to={item.path}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap
-                  ${isActive(item.path) 
-                    ? 'bg-purple-600 text-white shadow-inner shadow-purple-900' 
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-purple-400'
-                  }`}
+                  ${isActive(item.path) ? 'bg-purple-600 text-white shadow-inner shadow-purple-900' : 'text-gray-300 hover:bg-gray-700 hover:text-purple-400'}`}
               >
                 <Icon />
                 {item.name}
               </Link>
             );
           })}
-          
+
           <Link
             to="/portfolio"
             target="_blank"

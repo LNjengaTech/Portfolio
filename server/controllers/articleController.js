@@ -1,5 +1,33 @@
 const asyncHandler = require('express-async-handler');
 const Article = require('../models/Article');
+const cloudinary = require('../config/cloudinary');
+
+// Helper to extract Cloudinary Public IDs from HTML content
+const extractPublicIds = (htmlContent) => {
+  const ids = [];
+  // Regex to find Cloudinary URLs in <img> tags
+  // Adjust 'portfolio/projects' if your folder name is different
+  const regex = /res\.cloudinary\.com\/[^/]+\/image\/upload\/(?:v\d+\/)?(portfolio\/articles\/[^.]+)/g;
+  let match;
+  while ((match = regex.exec(htmlContent)) !== null) {
+    ids.push(match[1]);
+  }
+  return ids;
+};
+
+// @desc    Upload image to Cloudinary
+// @route   POST /api/articles/upload-image
+// @access  Private/Admin
+const uploadImage = asyncHandler(async (req, res) => {
+  if (req.file) {
+    res.json({ url: req.file.path });
+  } else {
+    res.status(400);
+    throw new Error('Image upload failed');
+  }
+});
+
+
 
 //Public: Get all published articles
 const getArticles = asyncHandler(async (req, res) => {
@@ -40,7 +68,7 @@ const createArticle = asyncHandler(async (req, res) => {
   const article = new Article({
     title,
     slug,
-    content,
+    content: content,
     published: published || false,
     tags: tags || []
   });
@@ -67,16 +95,41 @@ const updateArticle = asyncHandler(async (req, res) => {
   }
 });
 
-//Admin: Delete article
+// @desc    Delete article & cleanup Cloudinary
+// @route   DELETE /api/articles/:id
+// @access  Private/Admin
 const deleteArticle = asyncHandler(async (req, res) => {
   const article = await Article.findById(req.params.id);
+
   if (article) {
+    // 1. Find all images in the content
+    const publicIds = extractPublicIds(article.content);
+    
+    // 2. Delete images from Cloudinary
+    if (publicIds.length > 0) {
+      await Promise.all(
+        publicIds.map(id => cloudinary.uploader.destroy(id))
+      );
+    }
+
+    // 3. Delete article from DB
     await Article.deleteOne({ _id: article._id });
-    res.json({ message: 'Article removed' });
+    res.json({ message: 'Article and associated images removed' });
   } else {
     res.status(404);
     throw new Error('Article not found');
   }
 });
+//Admin: Delete article
+// const deleteArticle = asyncHandler(async (req, res) => {
+//   const article = await Article.findById(req.params.id);
+//   if (article) {
+//     await Article.deleteOne({ _id: article._id });
+//     res.json({ message: 'Article removed' });
+//   } else {
+//     res.status(404);
+//     throw new Error('Article not found');
+//   }
+// });
 
-module.exports = { getArticles, getArticleBySlug, getAllArticles, createArticle, updateArticle, deleteArticle };
+module.exports = { getArticles, getArticleBySlug, getAllArticles, createArticle, updateArticle, deleteArticle, uploadImage};

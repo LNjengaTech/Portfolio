@@ -74,11 +74,18 @@ const Dashboard = () => {
               → Manage Projects
             </Link>
             <Link
+              to="/admin/skills"
+              className="block px-4 py-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 hover:bg-blue-500/20 transition-colors"
+            >
+              → Manage Skills
+            </Link>
+            <Link
               to="/admin/commands"
               className="block px-4 py-3 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400 hover:bg-green-500/20 transition-colors"
             >
               → Manage Commands
             </Link>
+            
             <Link
               to="/portfolio"
               className="block px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-slate-300 hover:bg-slate-600 transition-colors"
