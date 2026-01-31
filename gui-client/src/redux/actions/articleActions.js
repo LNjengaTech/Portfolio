@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../api/api';
 import {
   ARTICLE_LIST_REQUEST, ARTICLE_LIST_SUCCESS, ARTICLE_LIST_FAIL,
   ARTICLE_LIST_ALL_REQUEST, ARTICLE_LIST_ALL_SUCCESS, ARTICLE_LIST_ALL_FAIL,
@@ -12,7 +12,7 @@ import {
 export const listArticles= () => async (dispatch) => {
   try {
     dispatch({ type: ARTICLE_LIST_REQUEST });
-    const { data } = await axios.get('/api/articles');
+    const { data } = await api.get('/articles');
     dispatch({ type: ARTICLE_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ARTICLE_LIST_FAIL, payload: error.response?.data.message || error.message });
@@ -25,7 +25,7 @@ export const listAllArticles = () => async (dispatch, getState) => {
     dispatch({ type: ARTICLE_LIST_ALL_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-    const { data } = await axios.get('/api/articles/all', config);
+    const { data } = await api.get('/articles/all', config);
     dispatch({ type: ARTICLE_LIST_ALL_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ARTICLE_LIST_ALL_FAIL, payload: error.response?.data.message || error.message });
@@ -35,7 +35,7 @@ export const listAllArticles = () => async (dispatch, getState) => {
 export const getArticleBySlug = (slug) => async (dispatch) => {
   try {
     dispatch({ type: ARTICLE_DETAILS_REQUEST });
-    const { data } = await axios.get(`/api/articles/${slug}`);
+    const { data } = await api.get(`/articles/${slug}`);
     dispatch({ type: ARTICLE_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ARTICLE_DETAILS_FAIL, payload: error.response?.data.message || error.message });
@@ -48,7 +48,7 @@ export const createArticle = (article) => async (dispatch, getState) => {
     dispatch({ type: ARTICLE_CREATE_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userInfo.token}` } };
-    const { data } = await axios.post('/api/articles', article, config);
+    const { data } = await api.post('/articles', article, config);
     dispatch({ type: ARTICLE_CREATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ARTICLE_CREATE_FAIL, payload: error.response?.data.message || error.message });
@@ -61,7 +61,7 @@ export const updateArticle = (id, article) => async (dispatch, getState) => {
     dispatch({ type: ARTICLE_UPDATE_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userInfo.token}` } };
-    const { data } = await axios.put(`/api/articles/${id}`, article, config);
+    const { data } = await api.put(`/articles/${id}`, article, config);
     dispatch({ type: ARTICLE_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ARTICLE_UPDATE_FAIL, payload: error.response?.data.message || error.message });
@@ -73,7 +73,7 @@ export const deleteArticle = (id) => async (dispatch, getState) => {
     dispatch({ type: ARTICLE_DELETE_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-    await axios.delete(`/api/articles/${id}`, config);
+    await api.delete(`/articles/${id}`, config);
     dispatch({ type: ARTICLE_DELETE_SUCCESS });
   } catch (error) {
     dispatch({ type: ARTICLE_DELETE_FAIL, payload: error.response?.data.message || error.message });

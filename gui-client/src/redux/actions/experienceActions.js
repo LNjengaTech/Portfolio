@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../api/api';
 import {
   EXPERIENCE_LIST_REQUEST, EXPERIENCE_LIST_SUCCESS, EXPERIENCE_LIST_FAIL,
   EXPERIENCE_CREATE_REQUEST, EXPERIENCE_CREATE_SUCCESS, EXPERIENCE_CREATE_FAIL,
@@ -9,7 +9,7 @@ import {
 export const listExperiences = () => async (dispatch) => {
   try {
     dispatch({ type: EXPERIENCE_LIST_REQUEST });
-    const { data } = await axios.get('/api/experiences');
+    const { data } = await api.get('/experiences');
     dispatch({ type: EXPERIENCE_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: EXPERIENCE_LIST_FAIL, payload: error.response?.data.message || error.message });
@@ -21,7 +21,7 @@ export const createExperience = (experience) => async (dispatch, getState) => {
     dispatch({ type: EXPERIENCE_CREATE_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userInfo.token}` } };
-    const { data } = await axios.post('/api/experience', experience, config);
+    const { data } = await api.post('/experience', experience, config);
     dispatch({ type: EXPERIENCE_CREATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: EXPERIENCE_CREATE_FAIL, payload: error.response?.data.message || error.message });
@@ -34,7 +34,7 @@ export const updateExperience = (id, experience) => async (dispatch, getState) =
     dispatch({ type: EXPERIENCE_UPDATE_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${userInfo.token}` } };
-    const { data } = await axios.put(`/api/experience/${id}`, experience, config);
+    const { data } = await api.put(`/experience/${id}`, experience, config);
     dispatch({ type: EXPERIENCE_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: EXPERIENCE_UPDATE_FAIL, payload: error.response?.data.message || error.message });
@@ -46,7 +46,7 @@ export const deleteExperience = (id) => async (dispatch, getState) => {
     dispatch({ type: EXPERIENCE_DELETE_REQUEST });
     const { userLogin: { userInfo } } = getState();
     const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-    await axios.delete(`/api/experience/${id}`, config);
+    await api.delete(`/experience/${id}`, config);
     dispatch({ type: EXPERIENCE_DELETE_SUCCESS });
   } catch (error) {
     dispatch({ type: EXPERIENCE_DELETE_FAIL, payload: error.response?.data.message || error.message });
