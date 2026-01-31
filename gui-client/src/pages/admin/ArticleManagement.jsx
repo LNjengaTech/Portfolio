@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listAllArticles, createArticle, updateArticle, deleteArticle } from '../../redux/actions/articleActions';
 import { ARTICLE_CREATE_RESET, ARTICLE_UPDATE_RESET } from '../../redux/constants/articleConstants';
 import ReactQuill from 'react-quill-new';
-import axios from 'axios';
 import 'react-quill-new/dist/quill.snow.css';
+import api from '../../api/api';
 
 const ArticleManagement = () => {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const ArticleManagement = () => {
         };
 
         //call the backend endpoint
-        const { data } = await axios.post('/api/articles/upload-image', uploadData, config);
+        const { data } = await api.post('/articles/upload-image', uploadData, config);
 
         const quill = quillRef.current.getEditor();
         const range = quill.getSelection();
