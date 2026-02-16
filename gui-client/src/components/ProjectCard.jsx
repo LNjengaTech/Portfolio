@@ -5,26 +5,20 @@ import { FaExternalLinkAlt, FaCode } from 'react-icons/fa';
 
 const ProjectCard = ({ project }) => {
   //check if it's a full URL (Cloudinary) or a local path
-  const imageUrl = project.imageUrl?.startsWith('http') 
-    ? project.imageUrl 
+  const imageUrl = project.imageUrl?.startsWith('http')
+    ? project.imageUrl
     : `${import.meta.env.VITE_API_URL.replace('/api', '')}${project.imageUrl}`;
 
   //fallback for empty images
   const finalSrc = project.imageUrl ? imageUrl : 'https://via.placeholder.com/400x300';
 
   return (
-    <div 
-      className="glass rounded-xl overflow-hidden shadow-lg border border-gray-200
-        transform hover:-translate-y-2 transition-all duration-500 card-hover"
+    <div className="glass rounded-xl overflow-hidden shadow-lg border border-gray-100! dark:border-gray-700! transform hover:-translate-y-2 transition-all duration-500 card-hover bg-gray-100! dark:bg-gray-800!"
       style={{ animation: 'var(--animation-slide-up)' }}
     >
       {/* Project Image/Media */}
-      <div className="relative aspect-video bg-gray-100 dark:bg-purple-950/1 overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={project.title}
-          className="w-full p-2 rounded-2xl h-full object-fit transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className="relative aspect-video overflow-hidden">
+        <img src={imageUrl} alt={project.title} className="w-full p-2 rounded-2xl h-full object-fit transition-transform duration-500 group-hover:scale-105" />
         {project.featured && (
           <span className="absolute top-3 right-3 bg-purple-600 text-white px-3 py-1 text-xs font-semibold rounded-full shadow-md">
             Featured

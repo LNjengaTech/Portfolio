@@ -23,7 +23,7 @@ const Projects = () => {
       : (projects || []).filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="section-padding bg-gray-100 dark:bg-gray-900 transition-colors duration-500">
+    <section id="projects" className="section-padding bg-white dark:bg-gray-950 transition-colors duration-500">
       <div className="container-custom">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
@@ -33,7 +33,7 @@ const Projects = () => {
             A selection of my recent work, showcasing a blend of design and functionality.
           </p>
 
-          {/* Filter Buttons - Styled for high contrast */}
+          {/*Filter Buttons*/}
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((category) => (
               <button
@@ -52,7 +52,7 @@ const Projects = () => {
           </div>
         </div>
 
-        {/* Projects Grid */}
+        {/*Projects Grid */}
         {loading ? (
           <div className="flex justify-center items-center py-20">
             <div className="spinner"></div>

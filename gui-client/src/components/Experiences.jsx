@@ -22,7 +22,7 @@ const Experiences = () => {
           </h2>
           <p className="text-gray-600 dark:text-gray-400 text-lg">Nothing here yet</p>
           <p className="text-gray-200 mt-10 md:mt-40 text-lg font-bold">
-                      <FaInfo className="inline mr-2 text-black bg-white p-1 rounded-full w-5 h-5"/>This Site is under Continous Integration & Delivery/Deployment (CI/CD)
+                      <FaInfo className="inline mr-2 text-black bg-white p-1 rounded-full w-5 h-5"/>This Site is under Continous Integration & Delivery/Deployment (CI/CD). This section is currently unavailable
                     </p>
         </div>
 
