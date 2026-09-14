@@ -119,7 +119,7 @@ const createProject = asyncHandler(async (req, res) => {
             description,
             detailedDescription,
             terminalCommand: terminalCommand.toLowerCase(),
-            technologies: Array.isArray(technologies) ? technologies : technologies.split(',').map(t => t.trim()),
+            technologies: Array.isArray(technologies) ? technologies : (technologies ? technologies.split(',').map(t => t.trim()).filter(t => t.length > 0) : []),
             liveUrl,
             repoUrl,
             imageUrl,
