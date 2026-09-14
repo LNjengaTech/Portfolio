@@ -144,7 +144,13 @@ const updateProject = asyncHandler(async (req, res) => {
 
     if (project) {
         //normalize technologies input
-        const techArray = Array.isArray(technologies) ? technologies : (technologies ? technologies.split(',').map(tech => tech.trim()).filter(t => t.length > 0) : []);
+        let techArray = [];
+        if (Array.isArray(technologies)) {
+          techArray = technologies;
+        } else if (typeof technologies === 'string' && technologies.trim()) {
+          techArray = technologies.split(',').map(t => t.trim()).filter(t => t);
+        }
+        // else keep empty array
             
         project.title = title || project.title;
         project.description = description || project.description;
