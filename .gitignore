@@ -3,6 +3,8 @@ client/.env
 server/.env
 gui-client/.env
 
+issues.md
+
 # Logs
 logs
 *.log

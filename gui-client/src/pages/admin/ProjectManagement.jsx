@@ -143,7 +143,7 @@ const ProjectManagement = () => {
 
     const projectData = {
       ...formData,
-      technologies: formData.technologies.split(',').map((t) => t.trim()),
+      technologies: formData.technologies,
       images: formData.images ? formData.images.split(',').map((i) => i.trim()) : [],
     };
 
